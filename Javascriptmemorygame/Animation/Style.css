@@ -1,0 +1,32 @@
+/* Add flip animation to the cards */
+.card {
+    animation: flip 0.5s ease-in-out;
+  }
+  
+  /* Add matching animation to the cards */
+  .match {
+    animation: match 0.5s ease-in-out;
+  }
+  
+  /* Keyframes for the flip animation */
+  @keyframes flip {
+    from {
+      transform: rotateY(0deg);
+    }
+    to {
+      transform: rotateY(360deg);
+    }
+  }
+  
+  /* Keyframes for the matching animation */
+  @keyframes match {
+    from {
+      transform: scale(1);
+      background-color: #fff;
+    }
+    to {
+      transform: scale(1.2);
+      background-color: #8bc34a;
+    }
+  }
+  

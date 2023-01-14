@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Set the style for the canvas */
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+  <script src="Timer.js"></script>
+  <script src="Soundeffects.js"></script>
+  <script src="Score.js"></script>
+  <script src="Responsivedesign.js"></script>
+  <script src="multipleplayer.js"></script>
+  <script src="Leaderboard.js"></script>
+  <script src="Gameover.js"></script>
+  <script src="Difficulty.js"></script>
+</head>
+<body>
+<canvas id="game"></canvas>
+
+  <script>
+    // Get the canvas element
+    var canvas = document.getElementById("game");
+    var ctx = canvas.getContext("2d");
+
+    // Set the size of the canvas
+    canvas.width = 400;
+    canvas.height = 400;
+
+    // Create an array of images
+    var images = [
+      "image1.jpg",
+      "image2.jpg",
+      "image3.jpg",
+      "image4.jpg"
+    ];
+
+    // Shuffle the images
+    images.sort(function() { return 0.5 - Math.random() });
+
+    // Create an array of image objects
+    var imageObjects = [];
+    for (var i = 0; i < images.length; i++) {
+      var image = new Image();
+      image.src = images[i];
+      imageObjects.push(image);
+    }
+
+    // Create an array of cards
+    var cards = [];
+    for (var i = 0; i < images.length; i++) {
+      var card = {
+        image: imageObjects[i],
+        flipped: false,
+        x: (i % 4) * 100,
+        y: Math.floor(i / 4) * 100
+      };
+      cards.push(card);
+    }
+
+    // Draw the cards on the canvas
+    function drawCards() {
+      for (var i = 0; i < cards.length; i++) {
+        var card = cards[i];
+        if (card.flipped) {
+          ctx.drawImage(card.image, card.x, card.y, 100, 100);
+        } else {
+          ctx.fillStyle = "blue";
+          ctx.fillRect(card.x, card.y, 100, 100);
+        }
+      }
+    }
+    drawCards();
+
+    // Add event listener for card flipping
+    canvas.addEventListener("click", function(event) {
+      var x = event.clientX - canvas.offsetLeft;
+      var y = event.clientY - canvas.offsetTop;
+
+      // Check if a card was clicked
+      for (var i = 0; i < cards.length; i++) {
+        var card = cards[i];
+        if (x >= card.x && x <= card.x + 100 && y >= card.y && y <= card.y + 100) {
+          card.flipped = !card.flipped;
+          drawCards();
+          break;
+        }
+      }
+    });
+  </script>
